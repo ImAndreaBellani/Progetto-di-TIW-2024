@@ -1,0 +1,112 @@
+<!-- 
+	Pagina web contenente il form per la creazione di un album.
+-->
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Create album</title>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+			<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+			<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th align="left">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/Homepage">		
+							<button class='generic_buttons'>
+								<i class="fa fa-home" aria-hidden="true"></i>
+								Torna alla home
+							</button>
+						</a>
+					</th>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/DoLogout">			
+							<button class='delete_buttons'>
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								Log-out
+							</button>
+						</a>
+					</th>			
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="wider_form_table">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoCreateAlbum">	
+							<table class="internal_form_table">
+								<tr>
+									<th colspan="3">
+										<h1>
+											Crea un album
+										</h1>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<div class="form_label">
+											Nome album
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<input type="text" class="first_type_input_text" name="title" placeholder="Nome album (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3" height="25px">
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<div th:if="${my_images.size()>0}" class="create_album_scroll_div" th:style="'height:'+${fixed_table_height}">
+											<table class="images_table">
+												<tr th:each="image : ${my_images}">
+													<th align="left">
+														<img th:src="${image.elem2}" th:alt="${image.elem1}" class="thumbnail"/>
+													</th>
+													<th >
+														<div th:text=${image.elem1} class="create_album_image_name">
+														</div>
+													</th>
+													<th>
+														<input type="checkbox" name="choices" th:value='${image.elem1}' class="create_album_checkboxes">
+													</th>
+												</tr>
+											</table>
+										</div>
+									</th>
+								</tr>	
+								<tr>
+									<th colspan="3">
+										<hr>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<button type='submit' name='submit' class='generic_buttons'>
+											<i class='fa fa-plus'></i>
+											Crea album
+										</button>
+									</th>
+								</tr>
+							</table>	
+						</form>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+		</body>
+	</html>

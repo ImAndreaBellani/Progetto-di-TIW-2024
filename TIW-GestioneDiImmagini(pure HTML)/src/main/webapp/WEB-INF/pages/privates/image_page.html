@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Image page</title>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th align="left" width="15%">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/Homepage">	
+							<button class='generic_buttons' >
+								<i class="fa fa-home" aria-hidden="true"></i>
+								Torna alla home
+							</button>
+						</a>
+					</th>
+					<th th:if="${returnAddress}" align="left" width="15%">
+						<a th:href="@{/AlbumPage(name=${returnAddress},user=${image_author},start=0)}">	
+							<button class='generic_buttons' >
+								<i class="fa fa-arrow-up" aria-hidden="true"></i>
+								Torna all'album
+							</button>
+						</a>
+					</th>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/DoLogout">			
+							<button class='delete_buttons' >
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								Log-out
+							</button>
+						</a>
+					</th>	
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="image_page_table">
+				<tr>
+					<th>
+						<table class="internal_form_table">
+							<tr>
+								<th colspan='2'>
+									<h1 class="main_image_title" th:text="${name}">
+									</h1>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2' th:if="${belongs_to_me}" align="right">
+									<form method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoDeleteImage">
+										<button type='submit' name='submit' class='delete_buttons' >
+											<i class="fa fa-trash" aria-hidden="true"></i>
+											Elimina immagine
+										</button>
+										<input type="hidden" name="name" th:value="${name}">
+										<input th:if="${returnAddress}" type="hidden" name="returnAddress" th:value="${returnAddress}">
+									</form>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<br>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<img th:src="${path}" th:alt="${name}" class="real_image">
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<textarea class="image_description" cols="52" th:text="${description}" readOnly>
+									</textarea>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" th:text="'Autore: ' +${image_author}"></th>
+								<th align="right" th:text="${date}"></th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" colspan='2' class="comment_section_title">
+									<h4>
+										Commenti:
+									</h4>
+								</th>
+							</tr>
+							<tr>
+								<td colspan='2'>
+									<table>
+										<tr>
+											<th colspan='2'>
+												<div th:if="${comments.size()>0}" class="comment_box_div" th:style="'height:'+${fixed_comment_box_height}">
+													<table class="comment_box">
+														<tr th:each="comment : ${comments}">
+															<th>	
+																<table class="internal_form_table">
+																	<tr>
+																		<th colspan='2'>
+																			<textarea th:text="${comment.text}" rows="4" cols="52" class="comment_textarea" readonly></textarea>
+																		</th>
+																	</tr>
+																	<tr>
+																		<th th:text="${comment.author}" align="left"></th>
+																		<th th:text="${comment.timestamp}" align="right"></th>
+																	</tr>
+																	<tr>
+																		<th colspan='2'>
+																			<hr>
+																		</th>
+																	</tr>
+																</table>	
+															</th>
+														</tr>
+													</table>
+												</div>
+											</th>
+										</tr>
+										<tr>
+											<th>
+												<br>
+											</th>
+										</tr>
+										<tr>
+											<th colspan='2'>
+												<form method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoPostComment">
+													<table class="post_comment_form_table">
+														<tr>
+															<th align="left" width="80%">
+																<input type="text" class="third_type_input_text" name="text" placeholder="Testo commento (max: 500 caratteri)">
+															</th>
+															<th align="right" width="10%">
+																<button type='submit' name='submit' class='post_comment_button'>
+																	<i class="material-icons" style="font-size:20px">send</i>
+																</button>
+															</th>
+														</tr>
+													</table>
+														
+													<input type="hidden" name="image_author" th:value="${image_author}">
+													<input type="hidden" name="name" th:value="${name}">
+													<input th:if="${returnAddress}" type="hidden" name="returnAddress" th:value="${returnAddress}">
+												</form>
+											</th>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+		</body>
+	</html>
