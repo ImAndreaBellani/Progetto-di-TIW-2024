@@ -1,0 +1,110 @@
+<!-- 
+	Pagina web contenente il form per il caricamento di un'immagine. Thymeleaf si occupa semplicemente di inserire l'eventuale messaggio di errore
+	nell'apposito paragrafo. In nessun campo del form è stato utilizzato un attributo per impedire che il client inserisca dati non
+	sintatticamente validi, in questo modo si apprezza meglio la natura "dump" del client "pure HTML".
+-->
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Upload image</title>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th align="left">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/Homepage">	
+							<button class='generic_buttons' >
+								<i class="fa fa-home" aria-hidden="true"></i>
+								Torna alla home
+							</button>
+						</a>
+					</th>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/DoLogout">	
+							<button class='delete_buttons' >
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								Log-out
+							</button>
+						</a>
+					</th>	
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="form_table">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoUploadImage" enctype="multipart/form-data" >
+							<table class="internal_form_table">
+								<tr>
+									<th colspan="2">
+										<h1>
+											Carica un'immagine
+										</h1>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<div class="form_label">
+											Nome
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<input type="text" class="first_type_input_text" name="name" placeholder="Nome immagine (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<div class="form_label">
+											Descrizione
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<input type="text" class="second_type_input_text" name="description" placeholder="Descrizione immagine (max: 500 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th height="25px">
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<input type="file" name="image" class="file_sub">
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<hr>
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<button type='submit' name='submit' class='generic_buttons'>
+											<i class='fa fa-cloud-upload'></i>
+											Carica
+										</button>
+									</th>
+								</tr>
+							</table>
+						</form>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+		</body>
+	</html>

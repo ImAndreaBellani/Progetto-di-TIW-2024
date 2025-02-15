@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title></title>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+			<script src="scripts/utils/communication_with_server.js" charset="UTF-8" defer></script>
+			<script src="scripts/pagesManagers/privates/homePageRunner.js" charset="UTF-8" defer></script>
+			
+		</head>
+		<body id="homepage_body">
+			<table id="menubar" class="menubar">
+				<tr>
+					<th align="left" width="15%">
+						<button class="generic_buttons" id="home_button">
+							<i class="fa fa-home" aria-hidden="true"></i>
+							 Torna alla home
+						</button>
+					</th>
+					<th align="left">
+						<button class="generic_buttons" id="back_button">
+							<i class="fa fa-arrow-up" aria-hidden="true"></i>
+							 Torna all'album
+						</button>
+					</th>
+					<th align="right">
+						<button class="delete_buttons" id="logout_button">
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+							 Log-out
+						</button>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<table class="homepage_content_table" id="home_page">
+				<tr>
+					<th class="generic_div">
+						Le tue immagini:
+						<button class='append_buttons' id="goToUploadImage_button">
+							<i class="fa fa-plus" aria-hidden="true"></i>
+							Aggiungine una
+						</button>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="homepage_scroll_div">
+							<table class="images_table" id="images_carousel">
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th class="generic_div">
+						I tuoi album:
+						<button class='append_buttons' id="goToCreateAlbum_button">
+							<i class="fa fa-plus" aria-hidden="true"></i>
+							Aggiungine uno
+						</button>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="homepage_scroll_div">
+							<table class="images_table" id="userAlbums_carousel">
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th class="generic_div">
+						Gli album degli utenti:
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="homepage_scroll_div">
+							<table class="images_table" id="nonUserAlbums_carousel">
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+			<table class="form_table" id="upload_image">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST" enctype="multipart/form-data">
+							<table class="internal_form_table">
+								<tr>
+									<th colspan="2">
+										<h1>
+											Carica un'immagine
+										</h1>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<div class="form_label">
+											Nome
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<input type="text" class="first_type_input_text" name="name" placeholder="Nome immagine (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<div class="form_label">
+											Descrizione
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<input type="text" class="second_type_input_text" name="description" placeholder="Descrizione immagine (max: 500 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th height="25px">
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<input type="file" name="image" class="file_sub">
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<hr>
+									</th>
+								</tr>
+								<tr>
+									<th colspan='2'>
+										<button type='submit' name='submit' class='generic_buttons' id="upload_image_button">
+											<i class='fa fa-cloud-upload'></i>
+											Carica
+										</button>
+									</th>
+								</tr>
+							</table>
+						</form>
+					</th>
+				</tr>
+			</table>
+			<table class="wider_form_table" id="create_album">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST" >	
+							<table class="internal_form_table">
+								<tr>
+									<th colspan="3">
+										<h1>
+											Crea un album
+										</h1>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<div class="form_label">
+											Nome album
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<input type="text" class="first_type_input_text" name="title" placeholder="Nome album  (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3" height="25px">
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<div class="create_album_scroll_div" id="create_album_scroll_div">
+											<table class="images_table" id="images_list">
+											</table>
+										</div>
+									</th>
+								</tr>	
+								<tr>
+									<th colspan="3">
+										<hr>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="3">
+										<button type='submit' name='submit' class='generic_buttons' id="create_album_button">
+											<i class='fa fa-plus'></i>
+											Crea album
+										</button>
+									</th>
+								</tr>
+							</table>	
+						</form>
+					</th>
+				</tr>
+			</table>
+			<table class="image_page_table" id="image_page">
+				<tr>
+					<th>
+						<table class="internal_form_table">
+							<tr>
+								<th colspan='2'>
+									<h1 class="main_image_title" id="image_title">
+									</h1>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr id="delete_image_button_container">
+								<th colspan='2' align="right">
+									<form method="POST" action="/TIW-GestioneDiImmagini(con%20JavaScript)/DoDeleteImage" id="delete_image_form">
+										<button type='submit' name='submit' class='delete_buttons' id="delete_image_button">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+											Elimina immagine
+										</button>
+										<input type="hidden" name="name">
+									</form>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<br>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<img id="real_image" class="real_image">
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<textarea class="image_description" cols="52" id="image_desc" readOnly>
+									</textarea>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" id="image_author"></th>
+								<th align="right" id="image_date"></th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" colspan='2' class="comment_section_title">
+									<h4>
+										Commenti:
+									</h4>
+								</th>
+							</tr>
+							<tr>
+								<td colspan='2'>
+									<table>
+										<tr>
+											<th colspan='2'>
+												<div class="comment_box_div" id="comment_box_div">
+													<table class="comment_box" id="comment_box_table">
+													</table>
+												</div>
+											</th>
+										</tr>
+										<tr>
+											<th>
+												<br>
+											</th>
+										</tr>
+										<tr>
+											<th colspan='2'>
+												<form method="POST" id="comment_form" accept-charset="UTF-8">
+													<input type="hidden" name="user">
+													<input type="hidden" name="name">
+													<table class="post_comment_form_table">
+														<tr>
+															<th align="left" width="80%">
+																<input type="text" class="third_type_input_text" name="text" placeholder="Testo commento (max: 500 caratteri)">
+															</th>
+															<th align="right" width="10%">
+																<button type='submit' name='submit' class='post_comment_button' id="upload_comment_button">
+																	<i class="material-icons" style="font-size:20px">send</i>
+																</button>
+															</th>
+														</tr>
+													</table>
+												</form>
+											</th>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</th>
+				</tr>
+			</table>
+			<p id="body_canvas" class="body_canvas">
+			</p>
+			<table class="error_paragraph" id="error_paragraph" class="w3-container w3-center w3-animate-zoom">
+				<tr>
+					<th id="content_error_paragraph">
+					</th>
+				</tr>
+			</table>
+			<table class="modal_box" id="modal_box_content">
+				<tr>
+					<th>
+						<table class="internal_form_table">
+							<tr>
+								<th colspan='2'>
+									<h1 class="main_image_title" id="mb_image_title">
+									</h1>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<br>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<div class="mb_real_image_scroll_div">
+										<img id="mb_real_image" class="real_image">
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<p class="image_description" id="mb_image_desc">
+									</p>
+								</th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" id="mb_image_author"></th>
+								<th align="right" id="mb_image_date"></th>
+							</tr>
+							<tr>
+								<th colspan='2'>
+									<hr>
+								</th>
+							</tr>
+							<tr>
+								<th align="left" colspan='2' class="comment_section_title">
+									<h4>
+										Commenti:
+									</h4>
+								</th>
+							</tr>
+							<tr>
+								<td colspan='2'>
+									<table>
+										<tr>
+											<th colspan='2'>
+												<div class="comment_box_div" id="mb_comment_box_div">
+													<table class="comment_box" id="mb_comment_box_table">
+													</table>
+												</div>
+											</th>
+										</tr>
+										<tr>
+											<th>
+												<br>
+											</th>
+										</tr>
+										<tr>
+											<th colspan='2'>
+												<form method="POST" id="mb_comment_form">
+													<input type="hidden" name="user">
+													<input type="hidden" name="name">
+													<table class="post_comment_form_table">
+														<tr>
+															<th align="left" width="80%">
+																<input type="text" class="third_type_input_text" name="text" placeholder="Testo commento (max: 500 caratteri)">
+															</th>
+															<th align="right" width="10%">
+																<button type='submit' name='submit' class='post_comment_button' id="mb_upload_comment_button">
+																	<i class="material-icons" style="font-size:20px">send</i>
+																</button>
+															</th>
+														</tr>
+													</table>
+												</form>
+											</th>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</th>
+				</tr>
+			</table>
+			<table class="internal_form_table" id="album_page">
+				<tr>
+					<th colspan="3">
+						<h1 class="main_album_title" id="album_name"></h1>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3">
+						<hr>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<p id="album_date" class="album_date">
+						</p>
+					</th>
+					<th align="right" id="sort_album_button_container">
+					</th>
+					<th align="right" id="delete_album_button_container">
+						<form method="POST" action="/TIW-GestioneDiImmagini(con%20JavaScript)/DoDeleteAlbum" id="delete_album_button_form">
+							<button type='submit' name='submit' class='delete_buttons' id="delete_album_button">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+								Elimina album
+							</button>
+							<input type="hidden" name="name">
+						</form>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3" >
+						<table class="images_table" id="album_page_carousel">
+						</table>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3" height="9px">
+					</th>
+				</tr>
+				<tr>
+					<th colspan="3">
+						<table class="footer_images_table">
+							<tr>
+								<th align="left" id="previous_button_container">
+								</th>
+								<th align="right" id="next_button_container">
+								</th>
+							</tr>
+						</table>
+					</th>
+				</tr>
+			</table>
+			<table class="wider_form_table" id="sort_album_page">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST"  id="sort_form">
+							<input type="hidden" name="user">
+							<input type="hidden" name="name">
+							<input type="hidden" name="size">
+							<table class="internal_form_table">
+								<tr>
+									<th colspan="2">
+										<h1>Ordina l'album</h1>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<p class="subtitle">Trascina il nome di un'immagine per spostarla nella posizione desiderata</p>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2" height="10px"></th>
+								</tr>
+								<tr>
+									<th>
+										<div class="create_album_scroll_div" id="sort_album_div">
+											<table class="images_table" id="sort_album_table">
+											</table>
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<hr>
+									</th>
+								</tr>
+								<tr>
+									<th colspan="2">
+										<button name="submit" value="submit" class="generic_buttons" id="sort_album_button">
+											<i class="fa fa-sort"></i>
+											Salva ordinamento
+										</button>
+									</th>
+								</tr>
+							</table>
+						</form>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+		</body>
+	</html>

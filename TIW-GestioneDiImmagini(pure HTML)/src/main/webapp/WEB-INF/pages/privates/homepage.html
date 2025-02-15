@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Homepage</title>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/DoLogout">	
+							<button class='delete_buttons' >
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								Log-out
+							</button>
+						</a>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="homepage_content_table">
+				<tr>
+					<th class="generic_div">
+						Le tue immagini:
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/UploadImage">
+							<button class='append_buttons'>
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								Aggiungine una
+							</button>
+						</a>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="homepage_scroll_div">
+							<table class="images_table">
+								<tr>
+									<th th:each="image : ${my_images_infos}">
+										<img th:src="${image.elem2}" th:alt="${image.elem1}" class="thumbnail">
+									</th>
+								</tr>
+								<tr>
+									<th th:each="image : ${my_images_infos}">
+										<a th:href="@{/ImagePage(name=${image.elem1},user=${username})}" th:text="${image.elem1}" class="table_names"> 
+										</a>
+									</th>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th class="generic_div">
+						I tuoi album:
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/CreateAlbum">
+							<button class='append_buttons'>
+								<i class="fa fa-plus" aria-hidden="true"></i>
+								Aggiungine uno
+							</button>
+						</a>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="small_homepage_scroll_div">
+							<table class="images_table">
+								<tr>
+									<th th:each="album : ${my_album_names}">
+										<a th:href="@{/AlbumPage(name=${album},user=${username},start=0)}" th:text="${album}" class="table_names">
+										</a>
+									</th>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th class="generic_div">
+						Gli album degli utenti:
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+						<br>
+						<div class="small_homepage_scroll_div">
+							<table class="images_table">
+								<tr>
+									<th th:each="album : ${others_albums_infos}">
+										<a th:href="@{/AlbumPage(name=${album.elem1},user=${album.elem2},start=0)}" th:text="${album.elem2}+'/'+${album.elem1}" class="table_names">
+										</a>
+									</th>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<br>
+					</th>
+				</tr>
+			</table>
+		</body>
+		<br>
+		<br>
+		<br>
+		<br>
+	</html>

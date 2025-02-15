@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Album page</title>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" media="all" href="css/skin.css"/>
+		    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th align="left">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/Homepage">	
+							<button class='generic_buttons' >
+								<i class="fa fa-home" aria-hidden="true"></i>
+								Torna alla home
+							</button>
+						</a>
+					</th>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/DoLogout">
+							<button class='delete_buttons' >
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								Log-out
+							</button>
+						</a>
+					</th>	
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="internal_form_table">
+				<tr>
+					<th colspan="2">
+						<h1 class="main_album_title" th:text="${name}"></h1>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="2" >
+						<hr>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<p th:text="${date+ ' / ' + author}" class="album_date">
+						</p>
+					</th>
+					<th colspan="2" th:if="${belongs_to_me}" align="right">
+						<form method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoDeleteAlbum">
+							<button type='submit' name='submit' class='delete_buttons' >
+								<i class="fa fa-trash" aria-hidden="true"></i>
+								Elimina album
+							</button>
+							<input type="hidden" name="name" th:value="${name}">
+						</form>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<br>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="2" >
+						<table class="images_table">
+							<tr>
+								<th th:each="image : ${images_infos}" width="20%">
+									<img th:if="${image.elem1}" th:src="${image.elem2}" th:alt="${image.elem1}" class="thumbnail">
+								</th>
+							</tr>
+							<tr>
+								<th th:each="image : ${images_infos}" width="20%">
+									<a th:if="${image.elem1}" th:href="@{/ImagePage(name=${image.elem1},user=${author},returnAddress=${name})}" th:text="${image.elem1}" class="table_names">
+									</a>
+								</th>
+							</tr>
+						</table>
+					</th>
+				</tr>
+				<tr>
+					<th colspan="2" height="9px">
+					</th>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<table class="footer_images_table">
+							<tr>
+								<th align="left">
+									<a th:if="${is_first_page==false}" th:href="@{/AlbumPage(name=${name},user=${author},start=${fixed_start}-5)}">
+										<button class='generic_buttons' >
+											<i class="fa fa-arrow-left" aria-hidden="true"></i>
+											PRECEDENTI
+										</button>
+									</a>
+								</th>
+								<th align="right">
+									<a th:if="${is_last_page==false}" th:href="@{/AlbumPage(name=${name},user=${author},start=${fixed_start}+5)}">
+										<button class='generic_buttons' >
+											SUCCESSIVE
+											<i class="fa fa-arrow-right" aria-hidden="true"></i>
+										</button>
+									</a>
+								</th>
+							</tr>
+						</table>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+		</body>
+	</html>

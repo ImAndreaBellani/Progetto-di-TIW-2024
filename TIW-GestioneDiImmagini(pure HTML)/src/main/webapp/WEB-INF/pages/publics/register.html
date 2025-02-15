@@ -1,0 +1,101 @@
+<!-- 
+	Pagina web contenente il form per la registrazione. Thymeleaf si occupa semplicemente di inserire l'eventuale messaggio di errore
+	nell'apposito paragrafo. In nessun campo del form è stato utilizzato un attributo per impedire che il client inserisca dati non
+	sintatticamente validi, in questo modo si apprezza meglio la natura "dump" del client "pure HTML".
+-->
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Registrazione</title>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="stylesheet" type="text/css" href="css/skin.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+		</head>
+		<body>
+			<table>
+				<tr class='menubar'>
+					<th colspan='3'>
+						<p class="generic_div">
+							Gestione di immagini
+						</p>
+					</th>
+					<th align="right">
+						<a href="/TIW-GestioneDiImmagini(pure%20HTML)/">
+							<button class="medium_generic_buttons">
+								<i class="fa fa-arrow-left" aria-hidden="true"></i>
+								Torna indietro
+							</button>
+						</a>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p th:if="${not error_message.isEmpty()}" class="error_paragraph" th:text="${error_message}">
+			</p>
+			<table class="form_table">
+				<tr>
+					<th>
+						<form class="menu_form" method="POST" action="/TIW-GestioneDiImmagini(pure%20HTML)/DoRegister">
+							<table class="internal_form_table">
+								<tr>
+									<th>
+										<div class="form_label">
+											Username
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<input type="text" class="first_type_input_text" name="username" placeholder="Il tuo username (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<div class="form_label">
+											Password
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<input type="password" class="first_type_input_password" name="password" placeholder="La tua password (max: 50 caratteri)">
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<input type="password" class="first_type_input_password" name="password1" placeholder="Ripeti password">
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<div class="form_label">
+											Indirizzo mail
+										</div>
+									</th>
+								</tr>
+								<tr>
+									<th>
+										<!--
+											 ho ritenuto opportuno l'utilizzo di un "text" per la mail anziché un "email" al fine di mostrare meglio
+											 il ruolo "dump" del client "pure HTML"
+										-->
+										<input type="text" class="first_type_input_email" name="mail" placeholder="La tua mail">
+									</th>
+								</tr>
+							</table>
+							<br>
+							<input type="submit" class="big_generic_buttons" value="Registrati">
+						</form>
+					</th>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>	
+		</body>
+	</html>
